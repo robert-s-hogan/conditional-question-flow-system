@@ -1,0 +1,99 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "What is your full legal name?",
+      "type": "text",
+      "next": "Q2"
+    },
+    {
+      "id": "Q2",
+      "question": "What is your birth year?",
+      "type": "year",
+      "next": "Q3"
+    },
+    {
+      "id": "Q3",
+      "question": "What is your marital status?",
+      "type": "select",
+      "options": [
+        "Single",
+        "Married",
+        "Divorced",
+        "Widowed",
+        "Domestic Partner"
+      ],
+      "next": "Q4"
+    },
+    {
+      "id": "Q4",
+      "question": "Do you have any children?",
+      "type": "yes_no",
+      "next": {
+        "yes": "Q7",
+        "no": "Q8"
+      }
+    },
+    {
+      "id": "Q5",
+      "question": "What is your partner's full legal name?",
+      "type": "text",
+      "next": "Q6"
+    },
+    {
+      "id": "Q6",
+      "question": "What is your partner's birth year?",
+      "type": "year",
+      "next": "Q8"
+    },
+    {
+      "id": "Q7",
+      "question": "How many children do you have?",
+      "type": "select",
+      "options": ["1", "2", "3", "4", "5+"],
+      "next": "Q8"
+    },
+    {
+      "id": "Q8",
+      "question": "Do you or your partner (if not single) own your primary residence?",
+      "type": "yes_no",
+      "next": {
+        "yes": "Q9",
+        "no": "Q11"
+      }
+    },
+    {
+      "id": "Q9",
+      "question": "Is your primary residence also your preferred mailing address?",
+      "type": "yes_no",
+      "next": "Q10"
+    },
+    {
+      "id": "Q10",
+      "question": "What is the approximate value of your real estate?",
+      "type": "number",
+      "next": "Q11"
+    },
+    {
+      "id": "Q11",
+      "question": "Do you own any other type of real estate (e.g., vacation, rental, etc.)?",
+      "type": "yes_no",
+      "next": {
+        "yes": "Q10",
+        "no": "Q12"
+      }
+    },
+    {
+      "id": "Q12",
+      "question": "Do you want to buy real estate in the future?",
+      "type": "yes_no",
+      "next": "Q13"
+    },
+    {
+      "id": "Q13",
+      "question": "Do you have any financial goals already created?",
+      "type": "yes_no",
+      "next": "summary"
+    }
+  ]
+}
