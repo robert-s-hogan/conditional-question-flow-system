@@ -92,6 +92,7 @@ export default {
       this.answers[this.currentQuestionId] = answer;
     },
     nextQuestion() {
+      this.handleAnswer(this.currentAnswer); // Ensure the current answer is saved
       const next = this.currentQuestion.next;
       if (typeof next === "string") {
         this.questionHistory.push(this.currentQuestionId);
@@ -111,7 +112,7 @@ export default {
     prevQuestion() {
       if (this.questionHistory.length > 0) {
         this.currentQuestionId = this.questionHistory.pop();
-        this.isCurrentAnswerValid = true;
+        this.isCurrentAnswerValid = true; // Assuming previous answers are valid
       }
     },
   },

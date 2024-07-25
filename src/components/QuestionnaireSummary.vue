@@ -2,9 +2,11 @@
   <div class="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
     <h2 class="text-2xl font-bold mb-6">Summary</h2>
     <div v-if="Object.keys(formData).length">
-      <div v-for="(value, key) in formData" :key="key" class="mb-4">
+      <div v-for="(value, key) in formData" :key="key" class="text-left mb-4">
         <p>
           <strong class="text-gray-700">{{ getQuestionText(key) }}:</strong>
+        </p>
+        <p>
           <span class="text-gray-900">{{ formatAnswer(value, key) }}</span>
         </p>
       </div>

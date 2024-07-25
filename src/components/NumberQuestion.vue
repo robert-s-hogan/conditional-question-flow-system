@@ -38,7 +38,7 @@ export default {
       formattedAnswer: this.formatNumber(this.initialAnswer),
       errorMessage: "",
       isValid: false,
-      hasInteracted: false, // New state to track if the user has interacted with the input
+      hasInteracted: false,
     };
   },
   computed: {
@@ -55,6 +55,7 @@ export default {
       if (newFormattedAnswer !== this.formatNumber(this.answer)) {
         const rawValue = this.parseNumber(newFormattedAnswer);
         this.answer = rawValue;
+        this.$emit("answer", rawValue); // Emit the answer whenever it changes
       }
     },
   },
@@ -70,7 +71,6 @@ export default {
       return value;
     },
     validate(answer = this.answer) {
-      // Only show errors if the user has interacted with the input
       if (!this.hasInteracted) {
         this.isValid = false;
         this.$emit("validated", false);
@@ -88,6 +88,7 @@ export default {
           this.errorMessage = "";
           this.isValid = true;
           this.$emit("validated", true);
+          this.$emit("answer", answer); // Emit the valid answer
         })
         .catch((err) => {
           this.errorMessage = err.message;
@@ -96,7 +97,7 @@ export default {
         });
     },
     handleInput(event) {
-      this.hasInteracted = true; // Mark that the user has interacted with the input
+      this.hasInteracted = true;
       this.formattedAnswer = event.target.value;
       this.validateDebounced();
     },

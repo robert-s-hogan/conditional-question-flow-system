@@ -29,7 +29,7 @@ export default {
       answer: this.initialAnswer || "",
       errorMessage: "",
       isValid: false,
-      hasInteracted: false, // New state to track if the user has interacted with the input
+      hasInteracted: false,
     };
   },
   computed: {
@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     validate(answer = this.answer) {
-      // Only show errors if the user has interacted with the input
       if (!this.hasInteracted) {
         this.isValid = false;
         this.$emit("validated", false);
@@ -65,6 +64,7 @@ export default {
           this.errorMessage = "";
           this.isValid = true;
           this.$emit("validated", true);
+          this.$emit("answer", answer);
         })
         .catch((err) => {
           this.errorMessage = err.message;
@@ -73,7 +73,7 @@ export default {
         });
     },
     handleInput() {
-      this.hasInteracted = true; // Mark that the user has interacted with the input
+      this.hasInteracted = true;
       this.validateDebounced();
     },
     validateDebounced: debounce(function () {

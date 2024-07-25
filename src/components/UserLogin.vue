@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>Log In</h2>
     <button @click="logInWithGoogle">Log In with Google</button>
     <p v-if="error" class="error">{{ error }}</p>
   </div>
