@@ -11,7 +11,11 @@
         </p>
       </div>
       <button @click="finalSubmit" class="btn-primary mt-4">Submit</button>
-      <p v-if="submissionMessage" class="text-green-500 mt-2">
+      <p
+        v-if="submissionMessage"
+        :class="{ 'text-green-500': isSuccess, 'text-red-500': !isSuccess }"
+        class="mt-2"
+      >
         {{ submissionMessage }}
       </p>
     </div>
@@ -22,8 +26,8 @@
 </template>
 
 <script>
-import { db, collection, addDoc } from "../firebaseConfig"; // Adjust the path as needed
-import questionConfig from "@/data/questionConfig.json"; // Import question config
+import { db, collection, addDoc } from "../firebaseConfig";
+import questionConfig from "@/data/questionConfig.json";
 
 export default {
   name: "QuestionnaireSummary",
@@ -31,6 +35,7 @@ export default {
     return {
       formData: {},
       submissionMessage: "",
+      isSuccess: false,
       questions: questionConfig.questions, // Store questions in data
     };
   },
@@ -61,10 +66,12 @@ export default {
       try {
         await addDoc(collection(db, "finalQuestionnaireData"), this.formData);
         this.submissionMessage = "Data submitted successfully!";
+        this.isSuccess = true;
         this.$router.push({ name: "SuccessPage" });
       } catch (error) {
         console.error("Error submitting final data: ", error);
         this.submissionMessage = "Failed to submit data. Please try again.";
+        this.isSuccess = false;
       }
     },
   },

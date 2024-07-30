@@ -19,19 +19,24 @@
 
 <script>
 import * as yup from "yup";
-import debounce from "lodash/debounce";
 
 export default {
   props: {
-    initialAnswer: String,
-    options: Array,
+    initialAnswer: {
+      type: String,
+      default: "",
+    },
+    options: {
+      type: Array,
+      required: true,
+    },
   },
   data() {
     return {
-      answer: this.initialAnswer || "",
+      answer: this.initialAnswer,
       errorMessage: "",
       isValid: false,
-      hasInteracted: false, // New state to track if the user has interacted with the input
+      hasInteracted: false,
     };
   },
   computed: {
@@ -41,12 +46,12 @@ export default {
   },
   watch: {
     answer(newAnswer) {
-      this.validateDebounced(newAnswer);
+      this.validate(newAnswer);
+      this.$emit("update:answer", newAnswer); // Emit the updated answer
     },
   },
   methods: {
     validate(answer = this.answer) {
-      // Only show errors if the user has interacted with the input
       if (!this.hasInteracted) {
         this.isValid = false;
         return;
@@ -67,12 +72,10 @@ export default {
         });
     },
     handleInput() {
-      this.hasInteracted = true; // Mark that the user has interacted with the input
-      this.validateDebounced();
+      this.hasInteracted = true;
+      this.validate();
+      this.$emit("input", this.answer); // Emit the answer for parent to capture
     },
-    validateDebounced: debounce(function () {
-      this.validate(this.answer);
-    }, 300),
   },
   mounted() {
     this.validate(this.answer);

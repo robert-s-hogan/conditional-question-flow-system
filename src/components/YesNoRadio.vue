@@ -39,7 +39,7 @@ export default {
       immediate: true,
       handler(newValue) {
         this.answer = newValue;
-        this.hasInteracted = false; // Reset interaction state
+        this.hasInteracted = false;
         this.$emit("validated", newValue !== null); // Emit validation state
       },
     },
